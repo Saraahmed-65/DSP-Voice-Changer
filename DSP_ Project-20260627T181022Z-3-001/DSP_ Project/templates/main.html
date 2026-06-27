@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='ind.css') }}">
+</head>
+<body>
+    <section class="upload-section">
+    <div class="upload-box">
+        <h3>Upload Your Audio</h3>
+        <p>Drag and drop or click to select an audio or video file</p>
+       
+    <div class="file-upload">
+        <input type="file" id="file" accept="audio/*,video/mp4,video/webm" hidden>
+        <label for="file" class="custom-file-btn">
+        📂 Choose File</label>
+
+         <i><span id="file-name">No file chosen</span></i>
+    </div>
+        <audio id="audio-player" controls style="display:none;"></audio>
+        <audio id="result-player" controls style="display:none; margin-top:20px;"></audio>
+    </div>
+</section>
+
+<section class="effects">
+    <h2>Voice Effects</h2>
+
+    <section class="effects">
+
+   
+    <div class="tabs">
+    <button class="tab active" onclick="showTab(event, 'presets')">Presets</button>
+    <button class="tab" onclick="showTab(event, 'characters')">Characters</button>
+    <button class="tab" onclick="showTab(event, 'effects')">Effects</button>
+    </div>
+
+    
+    <div class="cards tab-content active" id="presets">
+        <div class="card" data-effect="male">🎙️ <h3>Male</h3><i><p>Natural male voice</p></i></div>
+        <div class="card" data-effect="female">🎙️ <h3>Female</h3><i><p>Natural female voice</p></i></div>
+        <div class="card" data-effect="child">🧒 <h3>Child</h3><i><p>Young playful voice</p></i></div>
+        <div class="card" data-effect="deep">🔊 <h3>Deep</h3><i><p>Lower pitch voice</p></i></div>
+        <div class="card" data-effect="fast">⚡ <h3>Fast</h3><i><p>High speed voice</p></i></div>
+        <div class="card" data-effect="slow">🐢 <h3>Slow</h3><i><p>Slow motion voice</p></i></div>
+    </div>
+
+    
+    <div class="cards tab-content" id="characters">
+        <div class="card active" data-effect="robot">🤖 <h3>Robot</h3><i><p>Mechanical voice</p></i></div>
+        <div class="card" data-effect="alien">👽 <h3>Alien</h3><i><p>Distorted outer voice</p></i></div>
+        <div class="card" data-effect="oldman">👴 <h3>Old Man</h3><i><p>Deep aged voice</p></i></div>
+        <div class="card" data-effect="ghost">👻 <h3>Ghost</h3><i><p>Spooky echo voice</p></i></div>
+        <div class="card" data-effect="monster">👹 <h3>Monster</h3><i><p>Heavy scary voice</p></i></div>
+        <div class="card" data-effect="chipmunk">🐿️ <h3>Chipmunk</h3><i><p>High-pitched fun voice</p></i></div>
+    </div>
+
+    
+    <div class="cards tab-content" id="effects">
+        <div class="card" data-effect="echo">🎵 <h3>Echo</h3><i><p>Reverb echo sound</p></i></div>
+        <div class="card" data-effect="radio">📻 <h3>Radio</h3><i><p>Old radio effect</p></i></div>
+        <div class="card" data-effect="phone">📞 <h3>Phone</h3><i><p>Call quality voice</p></i></div>
+        <div class="card" data-effect="cave">🏔️ <h3>Cave</h3><i><p>Wide echo space</p></i></div>
+        <div class="card" data-effect="bassboost">🎚️ <h3>Bass Boost</h3><i><p>Heavy bass sound</p></i></div>
+        <div class="card" data-effect="reverb">🔊 <h3>Reverb</h3><i><p>Room reflection effect</p></i></div>
+    </div>
+
+</section>
+</section>
+
+
+
+<div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title" id="dashboardTitle">Robot Parameters</h1>
+            <p class="dashboard-subtitle">Adjust voice effect settings in real-time</p>
+        </div>
+
+        <div class="parameters-section">
+            <!-- Pitch Shift Parameter -->
+            <div class="parameter-item">
+                <div class="parameter-label">
+                    <span class="parameter-name">Pitch Shift</span>
+                    <span class="parameter-value"><span id="pitchValue">0</span> semitones</span>
+                </div>
+                <div class="slider-container">
+                    <input
+                        type="range"
+                        class="slider"
+                        id="pitchSlider"
+                        min="-24"
+                        max="24"
+                        value="0"
+                        step="1"
+                    />
+                </div>
+            </div>
+
+            <!-- Time Stretch Parameter -->
+            <div class="parameter-item">
+                <div class="parameter-label">
+                    <span class="parameter-name">Time Stretch</span>
+                    <span class="parameter-value"><span id="timeValue">1.00</span>x</span>
+                </div>
+                <div class="slider-container">
+                    <input
+                        type="range"
+                        class="slider"
+                        id="timeSlider"
+                        min="50"
+                        max="150"
+                        value="100"
+                        step="5"
+                    />
+                </div>
+            </div>
+
+            <!-- Filter Frequency Parameter -->
+            <div class="parameter-item">
+                <div class="parameter-label">
+                    <span class="parameter-name">Filter Frequency</span>
+                    <span class="parameter-value"><span id="filterValue">4000</span> Hz</span>
+                </div>
+                <div class="slider-container">
+                    <input
+                        type="range"
+                        class="slider"
+                        id="filterSlider"
+                        min="100"
+                        max="20000"
+                        value="4000"
+                        step="100"
+                    />
+                </div>
+            </div>
+
+            <!-- Reverb Amount Parameter -->
+            <div class="parameter-item">
+                <div class="parameter-label">
+                    <span class="parameter-name">Reverb Amount</span>
+                    <span class="parameter-value"><span id="reverbValue">30</span>%</span>
+                </div>
+                <div class="slider-container">
+                    <input
+                        type="range"
+                        class="slider"
+                        id="reverbSlider"
+                        min="0"
+                        max="100"
+                        value="30"
+                        step="5"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary btn-icon" id="applyBtn">
+                <span>⚡</span>
+                <span>Apply Effect</span>
+            </button>
+            <a class="btn btn-secondary btn-icon" id="downloadBtn">
+                <span>⬇️</span>
+                <span>Download Result</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="bodyy">
+        <h2 align="center">Advanced DSP processing</h2>
+        <div class="boxes">
+        <div class="boxe">
+            <center><h3>Pitch Shifting</h3>
+            <p>Adjust voice pitch from -24 to +24 semitones</p></center>
+        </div>
+
+        <div class="boxe">
+            <center><h3>Time Stretching</h3>
+            <p>Change playback speed without affecting pitch</p></center>
+        </div>
+
+        <div class="boxe">
+            <center><h3>Filtering</h3>
+            <p>Apply frequency filters from 100 Hz to 20 kHz</p></center>
+        </div>
+
+        <div class="boxe">
+           <center><h3>Reverb</h3>
+            <p>Add spatial depth with adjustable reverb effects</p></center>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <center><p>DSP Voice Changer © 2026. All Rights Reserved.</p></center>
+</footer>
+<script src="{{ url_for('static', filename='ind.js') }}"></script>
+</body>
+</html>
